@@ -106,7 +106,6 @@ definitions:
         type: string
     example:
       password: password
-      role: role
       phoneNumber: phoneNumber
       email: email
       name: username
