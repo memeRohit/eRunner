@@ -1,0 +1,127 @@
+swagger: '2.0'
+info:
+  description: This is a server for WKON
+  version: 1.0.0
+  title: eRunner
+host: localhost:5432
+tags:
+  - name: user
+    description: Operations about user
+    # externalDocs:
+    #   description: Find out more about our store
+    #   url: 'http://localhost:8080/'
+securityDefinitions:
+  key:
+    type: apiKey
+    in: header
+    name: Key
+schemes:
+  - http
+paths:
+  /user:
+    post:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: Create user
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created user object
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: User
+  /user/login:
+    post:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: Logs user into the system
+      description: ''
+      operationId: loginUser
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created user object
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: User
+  '/user/{id}':
+    get:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: Get user by id
+      description: ''
+      operationId: getUserById
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'The id that needs to be fetched. Use user1 for testing. '
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+      x-swagger-router-controller: User
+definitions:
+  User:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phoneNumber: 
+        type: string
+    example:
+      password: password
+      role: role
+      phoneNumber: phoneNumber
+      email: email
+      name: username
+    xml:
+      name: User
+  Login:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    example:
+      password: password
+      email: email
+    xml:
+      name: Login    
+
