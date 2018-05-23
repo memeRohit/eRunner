@@ -130,9 +130,9 @@ exports.getUserById = function (id) {
  * password String The password for login in clear text
  * returns String
  **/
-exports.loginUser = function (email, password) {
+exports.loginUser = function (body) {
   return new Promise(function (resolve, reject) {
-    User.findOne({ email: email, password: password },{password:0}, (error, user) => {
+    User.findOne({ email: body.email, password: body.password },{password:0}, (error, user) => {
       console.log(user);
       console.log(error)
       if (error) {
