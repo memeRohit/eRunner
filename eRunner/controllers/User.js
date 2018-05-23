@@ -47,9 +47,9 @@ module.exports.deleteUser = function deleteUser (req, res, next) {
     });
 };
 
-module.exports.getUserByName = function getUserByName (req, res, next) {
-  var username = req.swagger.params['username'].value;
-  User.getUserByName(username)
+module.exports.getUserById = function getUserById (req, res, next) {
+  var id = req.swagger.params['id'].value;
+  User.getUserById(id)
     .then(function (response) {
       utils.writeJson(res, response);
     })

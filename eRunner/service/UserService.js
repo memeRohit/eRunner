@@ -21,7 +21,7 @@ exports.createUser = function (body) {
         }
         else if (err.code == 11000) // error check if email is not unique
         {
-          reject({ "message": "This email already exists" })
+          reject({ "message": "This email or phone number already exists" })
         }
         else
           reject(err);
@@ -78,6 +78,48 @@ exports.getUserByName = function (username) {
     }
   });
 }
+
+
+/**
+ * Get user by user name
+ * 
+ *
+ * username String The name that needs to be fetched. Use user1 for testing. 
+ * returns User
+ **/
+exports.getUserById = function (id) {
+  return new Promise(function (resolve, reject) {
+
+    User.findOne({ _id: id }, (error, user) => {
+      console.log(user);
+      console.log(error)
+      if (error) {
+        reject(error);
+        return;
+      }
+      else if (user)
+        resolve({ error: false, result: user, message: "User get successfully" })
+      else
+        resolve({ error: true, message: "User does not exist" })
+    })
+
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**

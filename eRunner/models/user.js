@@ -9,9 +9,6 @@ module.exports = mongoose.model('user', new Schema({
     password:  {
         type: String
     },
-    role:  {
-        type: String
-    },
     email:  {
         type: String,
         required: true,
@@ -19,10 +16,6 @@ module.exports = mongoose.model('user', new Schema({
     },
     phoneNumber:{
         type: String
-    },
-    manager :{
-        type: Schema.ObjectId,
-        ref: 'User'
     },
     createdBy:{
         type: Schema.ObjectId,
