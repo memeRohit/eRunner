@@ -56,18 +56,18 @@ exports.createUser = function (body) {
       if (err) {
         if (err.errors && err.errors.email)  // error check if email is not present
         {
-          reject({ "message": "Email is required to create a user" })
+          reject({ error: true,"message": "Email is required to create a user" })
         }
         else if (err.code == 11000) // error check if email is not unique
         {
-          reject({ "message": "This email or phone number already exists" })
+          reject({error: true, "message": "This email or phone number already exists" })
         }
         else
           reject(err);
 
         return;
       }
-      resolve(user);
+      resolve({ error: false, result: user, message: "User created successfully" })
     })
 
   });
