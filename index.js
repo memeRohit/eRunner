@@ -1,12 +1,12 @@
 'use strict';
 
 var fs = require('fs'),
-    path = require('path'),
-    http = require('http');
+  path = require('path'),
+  http = require('http');
 
 var mongoose = require('mongoose');
 var app = require('connect')();
-var cors = require('cors')
+var cors = require('cors');
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
 var serverPort = 5432;
@@ -19,17 +19,19 @@ var options = {
 };
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
-var spec = fs.readFileSync(path.join(__dirname,'api/swagger.yaml'), 'utf8');
+var spec = fs.readFileSync(path.join(__dirname, 'api/swagger.yaml'), 'utf8');
 var swaggerDoc = jsyaml.safeLoad(spec);
 
-// cors
-app.use(cors());
+
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   // Interpret Swagger resources and attach metadata to request - must be first in swagger-tools middleware chain
   app.use(middleware.swaggerMetadata());
+
+  // cors
+  app.use(cors());
 
   // Validate Swagger requests
   app.use(middleware.swaggerValidator());
@@ -52,6 +54,6 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   });
 
   // Start the server
- 
+
 
 });
