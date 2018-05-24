@@ -63,8 +63,9 @@ module.exports.forgotPassword = function forgotPassword (req, res, next) {
 
 
 module.exports.resetPassword = function resetPassword (req, res, next) {
-  var body = req.swagger.params['body'].value;
-  User.resetPassword(body)
+  var password = req.swagger.params['password'].value;
+  var email = req.swagger.params['email'].value;
+  User.resetPassword(password,email)
     .then(function (response) {
       utils.writeJson(res, response);
     })

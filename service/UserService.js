@@ -176,7 +176,7 @@ exports.loginUser = function (body) {
 
 exports.forgotPassword = function (body) {
   return new Promise(function (resolve, reject) {
-    User.findOne({ email: body }, { password: 0 }, (error, user) => {
+    User.findOne({ email: body }, (error, user) => {
       console.log(user);
       console.log(error)
       if (error) {
@@ -196,30 +196,18 @@ exports.forgotPassword = function (body) {
 
 /******** Api to reset the password *************/
 
-exports.resetPassword = function (body) {
+exports.resetPassword = function (password,email) {
   return new Promise(function (resolve, reject) {
-
-    let newPassword = body.newPassword;
-
-    User.findOne({ email: body.email }, (error, user) => {
+    console.log(email);
+    console.log(password);
+    User.findOneAndUpdate({ email: email }, { $set: { password: password } }, { new: true }, (error, user) => {
       console.log(user);
       console.log(error)
       if (error) {
         reject(error);
-        return;
       }
-      if (user) {
-        user.password = newPassword;
-        user.save(function (err, user) {
-          if (err) {
-            reject(err);
-            return;
-          }
-          else {
-            resolve({ error: false, result: user, message: "Password reset successfully" });
-          }
-
-        })
+      else if (user) {
+        resolve({ error: false, result: user, message: "Password reset successfully" });
       }
       else
         resolve({ message: "Invalid email" })
@@ -230,23 +218,17 @@ exports.resetPassword = function (body) {
 
 
 
-
-
-
-
-
-
-/**
- * Updated user
- * This can only be done by the logged in user.
- *
- * username String name that need to be updated
- * body User Updated user object
- * no response value expected for this operation
- **/
-exports.updateUser = function (username, body) {
-  return new Promise(function (resolve, reject) {
-    resolve();
-  });
-}
+// /**
+//  * Updated user
+//  * This can only be done by the logged in user.
+//  *
+//  * username String name that need to be updated
+//  * body User Updated user object
+//  * no response value expected for this operation
+//  **/
+// exports.updateUser = function (username, body) {
+//   return new Promise(function (resolve, reject) {
+//     resolve();
+//   });
+// }
 

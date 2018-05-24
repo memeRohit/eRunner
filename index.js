@@ -36,7 +36,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   // Serve the Swagger documents and Swagger UI
   app.use(middleware.swaggerUi());
 
-  mongoose.connect('mongodb://localhost/wkon');
+  mongoose.connect('mongodb://localhost/eRunner');
   mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
   mongoose.connection.once('open', function () {
 

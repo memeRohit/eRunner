@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: This is a server for WKON
+  description: This is a server for eRunner
   version: 1.0.0
   title: eRunner
 host: localhost:5432
@@ -94,19 +94,25 @@ paths:
         - key: []
       tags:
         - user
-      summary: Forgot password system
+      summary: reset password system
       description: ''
       operationId: resetPassword
       produces:
         - application/xml
         - application/json
       parameters:
-        - in: body
-          name: body
+        - in: query
+          name: email
           description: reset the password object
           required: true
-          schema:
-            $ref: '#/definitions/Reset'
+          type: string
+        - in: query
+          name: password
+          description: reset the password object
+          required: true
+          type: string
+          # schema:
+          #   $ref: '#/definitions/User'
       responses:
         default:
           description: successful operation
@@ -170,18 +176,18 @@ definitions:
       email: email
     xml:
       name: Login    
-  Reset:
-    type: object
-    properties:
-      email:
-        type: string
-      password:
-        type: string
-    example:
-      password: password
-      email: email
-    xml:
-      name: Reset 
+  # Reset:
+  #   type: object
+  #   properties:
+  #     email:
+  #       type: string
+  #     password:
+  #       type: string
+  #   example:
+  #     password: password
+  #     email: email
+  #   xml:
+  #     name: Reset 
   # Forgotpass:
   #   type: object
   #   properties:
