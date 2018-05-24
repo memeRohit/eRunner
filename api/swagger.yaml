@@ -64,6 +64,53 @@ paths:
         default:
           description: successful operation
       x-swagger-router-controller: User
+  /user/sendmail:
+    post:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: Forgot password system
+      description: ''
+      operationId: forgotPassword
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: query
+          name: body
+          description: Created user object
+          required: true
+          type: string
+          # schema:
+          #   $ref: '#/definitions/Forgotpass'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: User 
+  /user/resetPassword:
+    put:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: Forgot password system
+      description: ''
+      operationId: resetPassword
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: reset the password object
+          required: true
+          schema:
+            $ref: '#/definitions/Reset'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: User                
   '/user/{id}':
     get:
       security:
@@ -123,4 +170,24 @@ definitions:
       email: email
     xml:
       name: Login    
-
+  Reset:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    example:
+      password: password
+      email: email
+    xml:
+      name: Reset 
+  # Forgotpass:
+  #   type: object
+  #   properties:
+  #     email:
+  #       type: string
+  #   example:
+  #     email: email
+  #   xml:
+  #     name: Forgotpass          
