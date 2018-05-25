@@ -145,6 +145,108 @@ paths:
         '404':
           description: User not found
       x-swagger-router-controller: User
+  /app:
+    post:
+      security:
+        - key: []
+      tags:
+        - app
+      summary: Create app
+      description: This can only be done by the logged in app.
+      operationId: createApp
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created app object
+          required: true
+          schema:
+            $ref: '#/definitions/App'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: App
+  '/app/{id}':
+    get:
+      security:
+        - key: []
+      tags:
+        - app
+      summary: Get app by id
+      description: ''
+      operationId: getAppById
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'The id that needs to be fetched '
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/App'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: App not found
+      x-swagger-router-controller: App 
+  /config:
+    post:
+      security:
+        - key: []
+      tags:
+        - config
+      summary: Create config
+      description: This can only be done by the logged in app.
+      operationId: createConfig
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created app object
+          required: true
+          schema:
+            $ref: '#/definitions/Config'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: Config
+  '/config/{id}':
+    get:
+      security:
+        - key: []
+      tags:
+        - config
+      summary: Get config by id
+      description: ''
+      operationId: getConfigById
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'The id that needs to be fetched '
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Config'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: App not found
+      x-swagger-router-controller: Config                       
 definitions:
   User:
     type: object
@@ -175,25 +277,55 @@ definitions:
       password: password
       email: email
     xml:
-      name: Login    
-  # Reset:
-  #   type: object
-  #   properties:
-  #     email:
-  #       type: string
-  #     password:
-  #       type: string
-  #   example:
-  #     password: password
-  #     email: email
-  #   xml:
-  #     name: Reset 
-  # Forgotpass:
-  #   type: object
-  #   properties:
-  #     email:
-  #       type: string
-  #   example:
-  #     email: email
-  #   xml:
-  #     name: Forgotpass          
+      name: Login 
+  App:
+    type: object
+    properties:
+      appName:
+        type: string
+      appDescription:
+        type: string
+    example:
+      appName: appName
+      appDescription: appDescription
+    xml:
+      name: App        
+  Config:
+    type: object
+    properties:
+      email:
+        type: object
+        properties:
+          email:
+            type: string
+          password:
+             type: string 
+      notification:
+        type: object
+        properties:
+          serverKey:
+            type: string
+      message:
+        type: object
+        properties:
+          fromNumber:
+            type: string
+          key:
+             type: string 
+      appId: 
+        type: string             
+    example:
+      appId: appId
+      email: {
+        email: email,
+        password: password
+      }
+      notification: {
+        serverKey : serverKey
+      }
+      message: {
+        fromNumber: fromNumber,
+        key: key
+      }
+    xml:
+      name: App            

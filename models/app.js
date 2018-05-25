@@ -1,47 +1,42 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-const userSchema =  mongoose.Schema({
-    
-    name: {
+const appSchema = mongoose.Schema({
+
+    appName: {
         type: String
     },
-    password:  {
+    appDescription: {
         type: String
     },
-    email:  {
-        type: String,
-        required: true,
-        unique: true
-    },
-    phoneNumber:{
+    appKey: {
         type: String
     },
-    createdBy:{
+    createdBy: {
         type: Schema.ObjectId,
         ref: 'User'
     },
-    updatedBy:{
+    updatedBy: {
         type: Schema.ObjectId,
         ref: 'User'
     },
-    createdDate:{
+    createdDate: {
         type: Date,
         default: Date.now()
     },
-    updatedDate:{
+    updatedDate: {
         type: Date,
         default: Date.now()
     },
-    enable:{
+    enable: {
         type: Number,
         default: 0
     }
-    
+
 });
 
 
 
-const user = module.exports = mongoose.model('user', userSchema);
+const app = module.exports = mongoose.model('app', appSchema);
 
 
 
