@@ -88,29 +88,6 @@ paths:
         default:
           description: successful operation
       x-swagger-router-controller: User 
-  /user/verifyotp:
-    post:
-      security:
-        - key: []
-      tags:
-        - user
-      summary: verify otp 
-      description: 'verify OTP'
-      operationId: verifyOtp
-      produces:
-        - application/xml
-        - application/json
-      parameters:
-        - in: body
-          name: email
-          description: Created user object
-          required: true
-          schema:
-            $ref: '#/definitions/verifyOtp'
-      responses:
-        default:
-          description: successful operation
-      x-swagger-router-controller: User     
   /user/resetPassword:
     put:
       security:
@@ -218,30 +195,35 @@ paths:
           description: Invalid id supplied
         '404':
           description: App not found
-      x-swagger-router-controller: App
+      x-swagger-router-controller: App 
+  /app/deleteById:
     delete:
       security:
         - key: []
       tags:
         - app
-      summary: Delete app
-      description: This can only be done by the logged in user.
+      summary: Delete app by appId
+      description: ''
       operationId: deleteApp
       produces:
         - application/xml
         - application/json
-      parameters:
-        - name: id
-          in: path
-          description: The name that needs to be deleted
+      parameters: 
+        - name: appId
+          in: query
+          description: 'The id that needs to be delete '
           required: true
           type: string
       responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/App'
         '400':
-          description: Invalid username supplied
+          description: Invalid id supplied
         '404':
-          description: User not found
-      x-swagger-router-controller: App     
+          description: App not found
+      x-swagger-router-controller: App 
   /config:
     post:
       security:
@@ -377,17 +359,4 @@ definitions:
         key: key
       }
     xml:
-      name: App 
-  verifyOtp:    
-    type: object
-    properties:
-      email:
-        type: string
-      code:
-        type: number
-    example:
-      email: email
-      code: code
-    xml:
-      name: verifyOtp        
-
+      name: App            

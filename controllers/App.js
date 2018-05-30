@@ -29,8 +29,8 @@ module.exports.getAppById = function getAppById(req, res, next) {
 
 
 module.exports.deleteApp = function deleteApp(req, res, next) {
-    var id = req.swagger.params['id'].value;
-    App.deleteApp(id)
+    var appId= req.swagger.params['appId'].value;
+    App.deleteApp(appId)
         .then(function (response) {
             utils.writeJson(res, response);
         })

@@ -84,16 +84,17 @@ exports.getAppById = function (appId) {
  * username String The name that needs to be fetched. Use user1 for testing. 
  * returns User
  **/
-exports.deleteApp = function (id) {
+exports.deleteApp = function (appId) {
     return new Promise(function (resolve, reject) {
   
-      app.findOneAndRemove({ _id: id }, (error, result) => {
+      app.findOneAndRemove({ _id: appId }, (error, result) => {
+          console.log('....result...',result)
         if (error) {
           reject(error);
           return;
         }
         else if (result)
-          resolve({ error: false, result: result, message: "App get successfully" })
+          resolve({ error: false, result: result, message: "App deleted " })
         else
           resolve({ error: true, message: "App does not exist" })
       })
