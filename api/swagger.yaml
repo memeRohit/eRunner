@@ -382,4 +382,16 @@ definitions:
         key: key
       }
     xml:
-      name: App            
+      name: App 
+  verifyOtp:
+    type: object
+    properties:
+      email:
+        type: string
+      code:
+        type: string
+    example:
+      email: appName
+      code: appDescription
+    xml:
+      name: verifyOtp                      
