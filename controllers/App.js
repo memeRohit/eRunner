@@ -17,8 +17,8 @@ module.exports.createApp = function createApp(req, res, next) {
 
 
 module.exports.getAppById = function getAppById(req, res, next) {
-    var appId = req.swagger.params['appId'].value;
-    App.getAppById(appId)
+    var userId = req.swagger.params['userId'].value;
+    App.getAppById(userId)
         .then(function (response) {
             utils.writeJson(res, response);
         })

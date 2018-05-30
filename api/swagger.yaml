@@ -168,7 +168,7 @@ paths:
         default:
           description: successful operation
       x-swagger-router-controller: App
-  '/app/{appId}':
+  '/app/{userId}':
     get:
       security:
         - key: []
@@ -181,7 +181,7 @@ paths:
         - application/xml
         - application/json
       parameters: 
-        - name: appId
+        - name: userId
           in: path
           description: 'The id that needs to be fetched '
           required: true
