@@ -50,8 +50,8 @@ module.exports.updateUser = function updateUser (req, res, next) {
 };
 
 module.exports.forgotPassword = function forgotPassword (req, res, next) {
-  var body = req.swagger.params['body'].value;
-  console.log(body);
+  var email = req.swagger.params['email'].value;
+  console.log(email);
   User.forgotPassword(body)
     .then(function (response) {
       utils.writeJson(res, response);

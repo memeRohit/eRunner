@@ -102,7 +102,7 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: body
+          name: email
           description: Created user object
           required: true
           schema:
