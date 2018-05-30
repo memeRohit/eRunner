@@ -77,3 +77,29 @@ exports.getAppById = function (appId) {
     });
   }
   
+/**
+ * Get user by user name
+ * 
+ *
+ * username String The name that needs to be fetched. Use user1 for testing. 
+ * returns User
+ **/
+exports.deleteApp = function (id) {
+    return new Promise(function (resolve, reject) {
+  
+      app.findOneAndRemove({ _id: id }, (error, result) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        else if (result)
+          resolve({ error: false, result: result, message: "App get successfully" })
+        else
+          resolve({ error: true, message: "App does not exist" })
+      })
+  
+    });
+  }
+
+
+

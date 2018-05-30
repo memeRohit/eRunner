@@ -28,5 +28,14 @@ module.exports.getAppById = function getAppById(req, res, next) {
 };
 
 
-
+module.exports.deleteApp = function deleteApp(req, res, next) {
+    var id = req.swagger.params['id'].value;
+    App.deleteApp(id)
+        .then(function (response) {
+            utils.writeJson(res, response);
+        })
+        .catch(function (response) {
+            utils.writeJson(res, response);
+        });
+};
 
