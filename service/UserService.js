@@ -177,9 +177,9 @@ exports.loginUser = function (body) {
 
 /********** Api for forgot password  */
 
-exports.forgotPassword = function (body) {
+exports.forgotPassword = function (email) {
   return new Promise(function (resolve, reject) {
-    User.findOne({ email: body }, (error, user) => {
+    User.findOne({ email: email }, (error, user) => {
       console.log(user);
       console.log(error)
       if (error) {
