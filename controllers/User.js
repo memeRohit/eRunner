@@ -52,7 +52,7 @@ module.exports.updateUser = function updateUser (req, res, next) {
 module.exports.forgotPassword = function forgotPassword (req, res, next) {
   var email = req.swagger.params['email'].value;
   console.log(email);
-  User.forgotPassword(body)
+  User.forgotPassword(email)
     .then(function (response) {
       utils.writeJson(res, response);
     })
