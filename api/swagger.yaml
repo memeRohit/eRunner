@@ -168,20 +168,20 @@ paths:
         default:
           description: successful operation
       x-swagger-router-controller: App
-  '/app/{id}':
+  '/app/{appId}':
     get:
       security:
         - key: []
       tags:
         - app
-      summary: Get app by id
+      summary: Get app by appId
       description: ''
       operationId: getAppById
       produces:
         - application/xml
         - application/json
-      parameters:
-        - name: id
+      parameters: 
+        - name: appId
           in: path
           description: 'The id that needs to be fetched '
           required: true
@@ -285,9 +285,12 @@ definitions:
         type: string
       appDescription:
         type: string
+      userId:
+        type: string
     example:
       appName: appName
       appDescription: appDescription
+      userId: userId
     xml:
       name: App        
   Config:

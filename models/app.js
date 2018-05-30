@@ -11,13 +11,18 @@ const appSchema = mongoose.Schema({
     appKey: {
         type: String
     },
+    userId:{
+        type:Schema.ObjectId,
+        ref:'user'
+        
+    },
     createdBy: {
         type: Schema.ObjectId,
-        ref: 'User'
+        ref: 'user'
     },
     updatedBy: {
         type: Schema.ObjectId,
-        ref: 'User'
+        ref: 'user'
     },
     createdDate: {
         type: Date,
@@ -32,6 +37,15 @@ const appSchema = mongoose.Schema({
         default: 0
     }
 
+});
+appSchema.pre('findOne', function (next) {
+    this.populate('userId');
+    next();
+});
+
+appSchema.pre('find', function (next) {
+    this.populate('userId');
+    next();
 });
 
 
