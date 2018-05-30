@@ -3,9 +3,12 @@ var User = require('../models/user');
 var nodemailer = require('nodemailer');
 
 
+// var code = Math.floor(Math.random() * 8999 + 1000);
+
+
 
 /*************Function for send email****************/
-function sendEmail(email) {
+function sendEmail(email,code) {
 
   var mailOptions, smtpTransporter;
   console.log("--------------------------------------------------");
@@ -24,7 +27,7 @@ function sendEmail(email) {
     from: 'memeinfotechnotifications@gmail.com',
     to: email,
     subject: 'Validate your account with the password',
-    html: '<h1>Welcome</h1><div><span><a href="http://mitapi.memeinfotech.com:5015/user/updateStatus?email=' + email + '">this is your link</a></span></div>'
+    text: "Your code is " + code,
   };
   smtpTransporter.sendMail(mailOptions, function (error, info) {
     if (error) {
@@ -56,11 +59,11 @@ exports.createUser = function (body) {
       if (err) {
         if (err.errors && err.errors.email)  // error check if email is not present
         {
-          reject({ error: true,"message": "Email is required to create a user" })
+          reject({ error: true, "message": "Email is required to create a user" })
         }
         else if (err.code == 11000) // error check if email is not unique
         {
-          reject({error: true, "message": "This email or phone number already exists" })
+          reject({ error: true, "message": "This email or phone number already exists" })
         }
         else
           reject(err);
@@ -184,8 +187,19 @@ exports.forgotPassword = function (body) {
         return;
       }
       if (user) {
-        user.email = sendEmail(user.email);
-        resolve({ error: false, message: "Reset link sent to your mail id" });
+        let code= Math.floor(Math.random() * 8999 + 1000);
+        user.otp = code;
+        user.otpExpiresIn = Date.now() + 60 * 1000 * 5;
+        user.save((error, result) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+            if (result) {
+              resolve({ error: false, message: "Reset link sent to your mail id" });
+            }
+        });
+        sendEmail(user.email,code);
       }
       else
         resolve({ message: "Invalid email" })
@@ -196,7 +210,41 @@ exports.forgotPassword = function (body) {
 
 /******** Api to reset the password *************/
 
-exports.resetPassword = function (password,email) {
+exports.verifyOtp = function (body) {
+  return new Promise(function (resolve, reject) {
+    let email = body.email;
+    let code = body.code;
+
+    User.findOne({ email: email }, (error, result) => {
+      if (result) {
+        
+        if (result.otp == code) {
+          if (result.otpExpiresIn && Date.now() > result.otpExpiresIn) {
+            reject({ error: true, message: "OTP expired" })
+          }
+          else {
+            result.otp = null;
+            result.otpExpiresIn = null;
+            User.findByIdAndUpdate(result._id, { $set: result }, { new: true }).then(res => {
+              // console.log(res);
+            })
+            resolve({ error: false, result: result, message: "OTP verified successfully" });
+          }
+        }
+        else {
+          resolve({ error: true, message: "Incorrect OTP" });
+        }
+      }
+      else {
+        resolve({ error: false, result: result, message: "Incorrect email id" });
+      }
+    });
+  });
+}
+
+/******** Api to reset the password *************/
+
+exports.resetPassword = function (password, email) {
   return new Promise(function (resolve, reject) {
     console.log(email);
     console.log(password);

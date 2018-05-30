@@ -62,6 +62,18 @@ module.exports.forgotPassword = function forgotPassword (req, res, next) {
 };
 
 
+module.exports.verifyOtp = function verifyOtp (req, res, next) {
+  var body = req.swagger.params['body'].value;
+  console.log(body);
+  User.verifyOtp(body)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.resetPassword = function resetPassword (req, res, next) {
   var password = req.swagger.params['password'].value;
   var email = req.swagger.params['email'].value;

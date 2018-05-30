@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const userSchema =  mongoose.Schema({
-    
+
     name: {
         type: String
     },
@@ -15,6 +15,12 @@ const userSchema =  mongoose.Schema({
     },
     phoneNumber:{
         type: String
+    },
+    otp:{
+        type: Number
+    },
+    otpExpiresIn: {
+        type: Number
     },
     createdBy:{
         type: Schema.ObjectId,
