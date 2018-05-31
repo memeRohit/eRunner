@@ -41,3 +41,25 @@ exports.createEvent = function (body) {
     });
 })
 }
+// LIST OF EVENT
+exports.getEventByAppId = function (appId) {
+    return new Promise(function (resolve, reject) {
+  
+        event.find({appId: appId }).sort({createdDate:-1}).exec(function (error, result) {
+        console.log('...result....',result)
+          
+       
+        if (error) {
+            console.log('...err....',error);
+            
+          reject(error);
+          return;
+        }
+        else if (result)
+          resolve({ error: false, result: result, message: "event get successfully" })
+        else
+          resolve({ error: true, message: "event does not exist" })
+      })
+  
+    });
+  }
