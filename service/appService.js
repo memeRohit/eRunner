@@ -58,7 +58,7 @@ exports.createApp = function (body) {
 exports.getAppById = function (userId) {
     return new Promise(function (resolve, reject) {
   
-      app.find({ userId: userId }, (error, result) => {
+      app.find({ userId: userId }).sort({createdDate:-1}).exec(function (error, result) {
         console.log('...result....',result)
           
        
