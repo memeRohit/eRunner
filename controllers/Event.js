@@ -29,3 +29,14 @@ module.exports.getEventByAppId = function getEventByAppId(req, res, next) {
         });
 };
 
+// DELETE EVENT
+module.exports.deleteEvent = function deleteEvent(req, res, next) {
+    var eventId= req.swagger.params['eventId'].value;
+    Event.deleteEvent(eventId)
+        .then(function (response) {
+            utils.writeJson(res, response);
+        })
+        .catch(function (response) {
+            utils.writeJson(res, response);
+        });
+};
