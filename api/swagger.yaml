@@ -191,7 +191,7 @@ paths:
         default:
           description: successful operation
       x-swagger-router-controller: App
-  '/app/{userId}':
+  '/app/{appId}':
     get:
       security:
         - key: []
@@ -204,7 +204,7 @@ paths:
         - application/xml
         - application/json
       parameters: 
-        - name: userId
+        - name: appId
           in: path
           description: 'The id that needs to be fetched '
           required: true
@@ -247,6 +247,29 @@ paths:
         '404':
           description: App not found
       x-swagger-router-controller: App 
+  /event:
+    post:
+      security:
+        - key: []
+      tags:
+        - event
+      summary: Create event
+      description: This can only be done by the logged in app.
+      operationId: createEvent
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created event object
+          required: true
+          schema:
+            $ref: '#/definitions/Event'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: Event
   /config:
     post:
       security:
@@ -343,7 +366,25 @@ definitions:
       appDescription: appDescription
       userId: userId
     xml:
-      name: App        
+      name: App   
+  Event:
+    type: object
+    properties:
+      eventName:
+        type: string
+      eventDescription:
+        type: string
+      userId:
+        type: string
+      appId:
+        type: string
+    example:
+      eventName: eventName
+      eventDescription: eventDescription
+      userId: userId
+      appId: appId
+    xml:
+      name: Event
   Config:
     type: object
     properties:
