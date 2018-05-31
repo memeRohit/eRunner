@@ -55,10 +55,10 @@ exports.createApp = function (body) {
  * username String The name that needs to be fetched. Use user1 for testing. 
  * returns User
  **/
-exports.getAppById = function (appId) {
+exports.getAppById = function (userId) {
     return new Promise(function (resolve, reject) {
   
-      app.findOne({ _id: appId }).sort({createdDate:-1}).exec(function(error, result) {
+      app.find({ userId: userId }, (error, result) => {
         console.log('...result....',result)
           
        
