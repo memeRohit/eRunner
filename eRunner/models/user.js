@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-mongoose.Promise = global.Promise;
+const userSchema =  mongoose.Schema({
 
-module.exports = mongoose.model('user', new Schema({
     name: {
         type: String
     },
@@ -16,6 +15,12 @@ module.exports = mongoose.model('user', new Schema({
     },
     phoneNumber:{
         type: String
+    },
+    otp:{
+        type: Number
+    },
+    otpExpiresIn: {
+        type: Number
     },
     createdBy:{
         type: Schema.ObjectId,
@@ -38,4 +43,11 @@ module.exports = mongoose.model('user', new Schema({
         default: 0
     }
     
-}));
+});
+
+
+
+const user = module.exports = mongoose.model('user', userSchema);
+
+
+
