@@ -1,0 +1,494 @@
+swagger: '2.0'
+info:
+  description: This is a server for eRunner
+  version: 1.0.0
+  title: eRunner
+host: localhost:5432
+tags:
+  - name: user
+    description: Operations about user
+    # externalDocs:
+    #   description: Find out more about our store
+    #   url: 'http://localhost:8080/'
+securityDefinitions:
+  key:
+    type: apiKey
+    in: header
+    name: Key
+schemes:
+  - http
+paths:
+  /user:
+    post:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: Create user
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created user object
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: User
+  /user/login:
+    post:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: Logs user into the system
+      description: ''
+      operationId: loginUser
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created user object
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: User
+  /user/sendmail:
+    post:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: Forgot password system
+      description: ''
+      operationId: forgotPassword
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: query
+          name: email
+          description: Created user object
+          required: true
+          type: string
+          # schema:
+          #   $ref: '#/definitions/Forgotpass'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: User 
+  /user/verifyotp:
+    post:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: verify otp 
+      description: 'verify OTP'
+      operationId: verifyOtp
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created user object
+          required: true
+          schema:
+            $ref: '#/definitions/verifyOtp'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: User     
+  /user/resetPassword:
+    put:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: reset password system
+      description: ''
+      operationId: resetPassword
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: query
+          name: email
+          description: reset the password object
+          required: true
+          type: string
+        - in: query
+          name: password
+          description: reset the password object
+          required: true
+          type: string
+          # schema:
+          #   $ref: '#/definitions/User'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: User                
+  '/user/{id}':
+    get:
+      security:
+        - key: []
+      tags:
+        - user
+      summary: Get user by id
+      description: ''
+      operationId: getUserById
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'The id that needs to be fetched. Use user1 for testing. '
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+      x-swagger-router-controller: User
+  /app:
+    post:
+      security:
+        - key: []
+      tags:
+        - app
+      summary: Create app
+      description: This can only be done by the logged in app.
+      operationId: createApp
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created app object
+          required: true
+          schema:
+            $ref: '#/definitions/App'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: App
+  '/app/{userId}':
+    get:
+      security:
+        - key: []
+      tags:
+        - app
+      summary: Get app by appId
+      description: ''
+      operationId: getAppById
+      produces:
+        - application/xml
+        - application/json
+      parameters: 
+        - name: userId
+          in: path
+          description: 'The id that needs to be fetched '
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/App'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: App not found
+      x-swagger-router-controller: App 
+  /app/deleteById:
+    delete:
+      security:
+        - key: []
+      tags:
+        - app
+      summary: Delete app by appId
+      description: ''
+      operationId: deleteApp
+      produces:
+        - application/xml
+        - application/json
+      parameters: 
+        - name: appId
+          in: query
+          description: 'The id that needs to be delete '
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/App'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: App not found
+      x-swagger-router-controller: App 
+  /event:
+    post:
+      security:
+        - key: []
+      tags:
+        - event
+      summary: Create event
+      description: This can only be done by the logged in app.
+      operationId: createEvent
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created event object
+          required: true
+          schema:
+            $ref: '#/definitions/Event'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: Event
+  '/event/{appId}':
+    get:
+      security:
+        - key: []
+      tags:
+        - event
+      summary: Get event by appId
+      description: ''
+      operationId: getEventByAppId
+      produces:
+        - application/xml
+        - application/json
+      parameters: 
+        - name: appId
+          in: path
+          description: 'The id that needs to be fetched '
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Event'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Event not found
+      x-swagger-router-controller: Event
+  /event/eventDelete:
+    delete:
+      security:
+        - key: []
+      tags:
+        - event
+      summary: Delete event by eventId
+      description: ''
+      operationId: deleteEvent
+      produces:
+        - application/xml
+        - application/json
+      parameters: 
+        - name: eventId
+          in: query
+          description: 'The id that needs to be delete '
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Event'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Event not found
+      x-swagger-router-controller: Event 
+  /config:
+    post:
+      security:
+        - key: []
+      tags:
+        - config
+      summary: Create config
+      description: This can only be done by the logged in app.
+      operationId: createConfig
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created app object
+          required: true
+          schema:
+            $ref: '#/definitions/Config'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: Config
+  '/config/{id}':
+    get:
+      security:
+        - key: []
+      tags:
+        - config
+      summary: Get config by id
+      description: ''
+      operationId: getConfigById
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'The id that needs to be fetched '
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Config'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: App not found
+      x-swagger-router-controller: Config                       
+definitions:
+  User:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phoneNumber: 
+        type: string
+    example:
+      password: password
+      phoneNumber: phoneNumber
+      email: email
+      name: username
+    xml:
+      name: User
+  Login:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    example:
+      password: password
+      email: email
+    xml:
+      name: Login 
+  App:
+    type: object
+    properties:
+      appName:
+        type: string
+      appDescription:
+        type: string
+      userId:
+        type: string
+    example:
+      appName: appName
+      appDescription: appDescription
+      userId: userId
+    xml:
+      name: App   
+  Event:
+    type: object
+    properties:
+      eventName:
+        type: string
+      eventDescription:
+        type: string
+      userId:
+        type: string
+      appId:
+        type: string
+    example:
+      eventName: eventName
+      eventDescription: eventDescription
+      userId: userId
+      appId: appId
+    xml:
+      name: Event
+  Config:
+    type: object
+    properties:
+      email:
+        type: object
+        properties:
+          email:
+            type: string
+          password:
+             type: string 
+      notification:
+        type: object
+        properties:
+          serverKey:
+            type: string
+      message:
+        type: object
+        properties:
+          fromNumber:
+            type: string
+          key:
+             type: string 
+      appId: 
+        type: string             
+    example:
+      appId: appId
+      email: {
+        email: email,
+        password: password
+      }
+      notification: {
+        serverKey : serverKey
+      }
+      message: {
+        fromNumber: fromNumber,
+        key: key
+      }
+    xml:
+      name: App 
+  verifyOtp:
+    type: object
+    properties:
+      email:
+        type: string
+      code:
+        type: string
+    example:
+      email: appName
+      code: appDescription
+    xml:
+      name: verifyOtp                      
