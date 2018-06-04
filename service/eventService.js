@@ -17,7 +17,7 @@ exports.createEvent = function (body) {
             updatedDate : Date.now()
         });
         console.log(data)
-        event.find({userId:data.userId,eventName:data.eventName}).exec(function(err,res){
+        event.find({userId:data.userId,eventName:data.name}).exec(function(err,res){
             console.log("results",res);
             if(err){
                 reject({ error: true, message: err });
