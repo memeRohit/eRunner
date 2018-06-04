@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const appSchema = mongoose.Schema({
 
-    appName: {
+    name: {
         type: String
     },
-    appDescription: {
+    description: {
         type: String
     },
     appKey: {

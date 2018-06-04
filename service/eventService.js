@@ -7,9 +7,9 @@ exports.createEvent = function (body) {
 
 
         var data = new event({
-            eventName : body.eventName,
+            name : body.name,
             userId:body.userId,
-            eventDescription : body.eventDescription,
+            description : body.description,
             appId:body.appId,
             createdBy : body.userId,
             updatedBy : body.userId,

@@ -411,32 +411,32 @@ definitions:
   App:
     type: object
     properties:
-      appName:
+      name:
         type: string
-      appDescription:
+      description:
         type: string
       userId:
         type: string
     example:
-      appName: appName
-      appDescription: appDescription
+      name: name
+      description: description
       userId: userId
     xml:
       name: App   
   Event:
     type: object
     properties:
-      eventName:
+      name:
         type: string
-      eventDescription:
+      description:
         type: string
       userId:
         type: string
       appId:
         type: string
     example:
-      eventName: eventName
-      eventDescription: eventDescription
+      name: name
+      description: description
       userId: userId
       appId: appId
     xml:

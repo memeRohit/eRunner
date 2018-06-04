@@ -14,9 +14,9 @@ exports.createApp = function (body) {
 
 
         var data = new app({
-            appName : body.appName,
+            name : body.name,
             userId:body.userId,
-            appDescription : body.appDescription,
+            description : body.description,
             appKey : nid({ hex: 1 }),
             createdBy : body.userId,
             updatedBy : body.userId,

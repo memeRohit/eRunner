@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const eventSchema = mongoose.Schema({
 
-    eventName: {
+    name: {
         type: String
     },
-    eventDescription: {
+    description: {
         type: String
     },
     appId:{
