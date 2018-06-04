@@ -24,7 +24,7 @@ exports.createApp = function (body) {
             updatedDate : Date.now()
         });
         console.log(data)
-        app.find({userId:data.userId,appName:data.name}).exec(function(err,res){
+        app.find({userId:data.userId,name:data.name}).exec(function(err,res){
             console.log("results",res);
             if(err){
                 reject({ error: true, message: err });

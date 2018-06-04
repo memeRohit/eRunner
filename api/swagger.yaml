@@ -326,6 +326,29 @@ paths:
         '404':
           description: Event not found
       x-swagger-router-controller: Event 
+  /state:
+    post:
+      security:
+        - key: []
+      tags:
+        - state
+      summary: create state 
+      description: ''
+      operationId: createState
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created state object
+          required: true
+          schema:
+            $ref: '#/definitions/State'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: State
   /config:
     post:
       security:
@@ -439,6 +462,27 @@ definitions:
       description: description
       userId: userId
       appId: appId
+    xml:
+      name: Event
+  State:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      userId:
+        type: string
+      eventId:
+        type: string
+      type:
+         type: string
+    example:
+      name: name
+      description: description
+      userId: userId
+      eventId: eventId
+      type: SMS,EMAIL,NOTIFICATION
     xml:
       name: Event
   Config:
