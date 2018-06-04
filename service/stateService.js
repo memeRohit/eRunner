@@ -67,7 +67,7 @@ exports.getStateById = function (eventId) {
             if (error) {
                 console.log('...err....', error);
 
-                reject({error: true,message: message.error});
+                reject({error: true,message: error});
                 return;
             }
             else if (result)
