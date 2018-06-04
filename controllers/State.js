@@ -29,10 +29,10 @@ module.exports.getStateById = function getStateById(req, res, next) {
         });
 };
 
-// DELETE EVENT
-module.exports.findStateById = function findStateById(req, res, next) {
-    var id= req.swagger.params['id'].value;
-    state.findStateById(id)
+// DELETE STATE
+module.exports.deleteState = function deleteState(req, res, next) {
+    var stateId= req.swagger.params['stateId'].value;
+    state.deleteState(stateId)
         .then(function (response) {
             utils.writeJson(res, response);
         })

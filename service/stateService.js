@@ -87,25 +87,25 @@ exports.getStateById = function (eventId) {
  * returns User
  **/
 
-exports.findStateById = function (id) {
-    return new Promise(function (resolve, reject) {
+// exports.findStateById = function (id) {
+//     return new Promise(function (resolve, reject) {
 
-        state.find({_id: id }).sort({ createdDate: -1 }).exec(function (error, result) {
-            console.log('...result....', result)
-            if (error) {
-                console.log('...err....', error);
+//         state.find({_id: id }).sort({ createdDate: -1 }).exec(function (error, result) {
+//             console.log('...result....', result)
+//             if (error) {
+//                 console.log('...err....', error);
 
-                reject(error);
-                return;
-            }
-            else if (result)
-                resolve({ error: false, result: result, message: "state get successfully" })
-            else
-                resolve({ error: true, message: "state does not exist" })
-        })
+//                 reject(error);
+//                 return;
+//             }
+//             else if (result)
+//                 resolve({ error: false, result: result, message: "state get successfully" })
+//             else
+//                 resolve({ error: true, message: "state does not exist" })
+//         })
 
-    });
-}
+//     });
+// }
 
 
 /**
@@ -115,19 +115,19 @@ exports.findStateById = function (id) {
  * username String The name that needs to be fetched. Use user1 for testing. 
  * returns User
  **/
-exports.deleteApp = function (stateId) {
+exports.deleteState= function (stateId) {
     return new Promise(function (resolve, reject) {
 
-        app.findOneAndRemove({ _id: stateId }, (error, result) => {
+        state.findOneAndRemove({ _id: stateId }, (error, result) => {
             console.log('....result...', result)
             if (error) {
-                reject(error);
+                reject({error:true,message:error});
                 return;
             }
             else if (result)
-                resolve({ error: false, result: result, message: "App deleted " })
+                resolve({ error: false, result: result, message: "State deleted " })
             else
-                resolve({ error: true, message: "App does not exist" })
+                resolve({ error: true, message: "State does not exist" })
         })
 
     });
