@@ -57,23 +57,23 @@ exports.createState = function (body) {
  * returns User
  **/
 
-exports.getStateById = function (userId) {
+exports.getStateById = function (eventId) {
     return new Promise(function (resolve, reject) {
 
-        state.find({ userId: userId }).sort({ createdDate: -1 }).exec(function (error, result) {
+        state.find({ eventId: eventId }).sort({ createdDate: -1 }).exec(function (error, result) {
             console.log('...result....', result)
 
 
             if (error) {
                 console.log('...err....', error);
 
-                reject(error);
+                reject({error: true,message: message.error});
                 return;
             }
             else if (result)
                 resolve({ error: false, result: result, message: "state get successfully" })
             else
-                resolve({ error: true, message: "state does not exist" })
+                resolve({ error: true, message: "State  does not exist" })
         })
 
     });

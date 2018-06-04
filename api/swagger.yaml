@@ -349,6 +349,34 @@ paths:
         default:
           description: successful operation
       x-swagger-router-controller: State
+  '/state/{eventId}':
+    get:
+      security:
+        - key: []
+      tags:
+        - state
+      summary: Get state by eventId
+      description: ''
+      operationId: getStateById
+      produces:
+        - application/xml
+        - application/json
+      parameters: 
+        - name: eventId
+          in: path
+          description: 'The id that needs to be fetched '
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/State'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Event not found
+      x-swagger-router-controller: State
   /config:
     post:
       security:

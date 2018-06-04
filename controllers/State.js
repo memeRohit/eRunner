@@ -19,8 +19,8 @@ module.exports.createState = function createState(req, res, next) {
 
 // GET EVENT THROUGH APPID
 module.exports.getStateById = function getStateById(req, res, next) {
-    var userId = req.swagger.params['userId'].value;
-    state.getStateById(userId)
+    var eventId = req.swagger.params['eventId'].value;
+    state.getStateById(eventId)
         .then(function (response) {
             utils.writeJson(res, response);
         })
