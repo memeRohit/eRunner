@@ -140,10 +140,7 @@ exports.updateState = function (body) {
         body.updatedDate = Date.now();
         body.html = (body.html);
         body.htmlJson = body.htmlJson;
-        console.log(body)
-        state.findOneAndUpdate({ _id: body.stateId }, { $set: body }, { new: true }, (error, result) => {
-            console.log(module);
-            console.log(error)
+       state.findOneAndUpdate({ _id: body.stateId }, { $set: body }, { new: true }, (error, result) => {
             if (error) {
                 reject(error);
                 return;
