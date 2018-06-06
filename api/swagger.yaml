@@ -349,6 +349,29 @@ paths:
         default:
           description: successful operation
       x-swagger-router-controller: State
+  /state/update:
+    put:
+      security:
+        - key: []
+      tags:
+        - state
+      summary: update state 
+      description: ''
+      operationId: updateState
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created state object
+          required: true
+          schema:
+            $ref: '#/definitions/Stateupdate'
+      responses:
+        default:
+          description: successful operation
+      x-swagger-router-controller: State
   '/state/{eventId}':
     get:
       security:
@@ -533,14 +556,38 @@ definitions:
         type: string
       type:
          type: string
+      html:
+         type: string
+      htmlJson:
+         type: string
+      stateId:
+         type: string
     example:
       name: name
       description: description
       userId: userId
       eventId: eventId
       type: SMS,EMAIL,NOTIFICATION
+      html: html of template
+      htmlJson: json file of html template
+      stateId: state to be updated
     xml:
-      name: Event
+      name: State
+  Stateupdate:
+    type: object
+    properties:
+      html:
+         type: string
+      htmlJson:
+         type: string
+      stateId:
+         type: string
+    example:
+      html: html of template
+      htmlJson: json  of html template
+      stateId: state to be updated
+    xml:
+      name: Stateupdate
   Config:
     type: object
     properties:

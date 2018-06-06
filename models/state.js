@@ -38,6 +38,12 @@ const stateSchema = mongoose.Schema({
     enable: {
         type: Number,
         default: 0
+    },
+    html: {
+        type:String
+    },
+    htmlJson:{
+        type:String
     }
     
 });

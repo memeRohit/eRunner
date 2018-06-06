@@ -18,7 +18,7 @@ exports.createState = function (body) {
             userId: body.userId,
             description: body.description,
             eventId: body.eventId,
-            type:body.type,
+            type: body.type,
             createdBy: body.userId,
             updatedBy: body.userId,
             createdDate: Date.now(),
@@ -67,7 +67,7 @@ exports.getStateById = function (eventId) {
             if (error) {
                 console.log('...err....', error);
 
-                reject({error: true,message: error});
+                reject({ error: true, message: error });
                 return;
             }
             else if (result)
@@ -115,13 +115,13 @@ exports.getStateById = function (eventId) {
  * username String The name that needs to be fetched. Use user1 for testing. 
  * returns User
  **/
-exports.deleteState= function (stateId) {
+exports.deleteState = function (stateId) {
     return new Promise(function (resolve, reject) {
 
         state.findOneAndRemove({ _id: stateId }, (error, result) => {
             console.log('....result...', result)
             if (error) {
-                reject({error:true,message:error});
+                reject({ error: true, message: error });
                 return;
             }
             else if (result)
@@ -133,5 +133,27 @@ exports.deleteState= function (stateId) {
     });
 }
 
+
+// UPDATE STATE
+exports.updateState = function (body) {
+    return new Promise(function (resolve, reject) {
+        body.updatedDate = Date.now();
+        body.html = (body.html);
+        body.htmlJson = body.htmlJson;
+        console.log(body)
+        state.findOneAndUpdate({ _id: body.stateId }, { $set: body }, { new: true }, (error, result) => {
+            console.log(module);
+            console.log(error)
+            if (error) {
+                reject(error);
+                return;
+            }
+            else if (module)
+                resolve({ error: false, result: result });
+            else
+                resolve({ error: true, message: "No such state found" })
+        })
+    })
+}
 
 

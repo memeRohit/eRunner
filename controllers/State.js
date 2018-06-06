@@ -40,3 +40,16 @@ module.exports.deleteState = function deleteState(req, res, next) {
             utils.writeJson(res, response);
         });
 };
+
+
+module.exports.updateState = function updateState (req, res, next) {
+    // var id = req.swagger.params['stateId'].value;
+    var body = req.swagger.params['body'].value;
+    state.updateState(body)
+      .then(function (response) {
+        utils.writeJson(res, response);
+      })
+      .catch(function (response) {
+        utils.writeJson(res, response);
+      });
+  };
