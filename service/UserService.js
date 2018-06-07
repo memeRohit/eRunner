@@ -136,7 +136,7 @@ exports.getUserById = function (id) {
       console.log(user);
       console.log(error)
       if (error) {
-        reject(error);
+        reject({error:true,message:error});
         return;
       }
       else if (user)
@@ -163,13 +163,13 @@ exports.loginUser = function (body) {
       console.log(user);
       console.log(error)
       if (error) {
-        reject(error);
+        reject({error:true,message:error});
         return;
       }
       if (user)
         resolve({ error: false, result: user, message: "User get successfully" });
       else
-        resolve({ message: "Invalid email or password" })
+        resolve({error:true, message: "Invalid email or password" })
     })
 
   });
@@ -183,7 +183,7 @@ exports.forgotPassword = function (email) {
       console.log(user);
       console.log(error)
       if (error) {
-        reject(error);
+        reject({error:true,message:error});
         return;
       }
       if (user) {
@@ -192,7 +192,7 @@ exports.forgotPassword = function (email) {
         user.otpExpiresIn = Date.now() + 60 * 1000 * 5;
         user.save((error, result) => {
           if (error) {
-            reject(error);
+            reject({error:true,message:error});
             return;
           }
             if (result) {
@@ -202,7 +202,7 @@ exports.forgotPassword = function (email) {
         sendEmail(user.email,code);
       }
       else
-        resolve({ message: "Invalid email" })
+        resolve({ error:true,message: "Invalid email" })
     })
 
   });
@@ -252,13 +252,13 @@ exports.resetPassword = function (password, email) {
       console.log(user);
       console.log(error)
       if (error) {
-        reject(error);
+        reject({error:true,message:error});
       }
       else if (user) {
         resolve({ error: false, result: user, message: "Password reset successfully" });
       }
       else
-        resolve({ message: "Invalid email" })
+        resolve({error:true, message: "Invalid email" })
     })
 
   });
